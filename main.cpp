@@ -20,11 +20,11 @@ class DoublyLinkedList {
 // private member variables
 private:
     struct Node {
-        int data;
+        string data;
         Node* prev;   // pointer for previous node in the list
         Node* next;   // pointer for next node in the list
         // constructor which initializes each variable inside the Node struct
-        Node(int val, Node* p = nullptr, Node* n = nullptr) {
+        Node(string val, Node* p = nullptr, Node* n = nullptr) {
             data = val; // sets data equal to what val has stored
             prev = p;   // sets the previous pointer
             next = n;   // sets the next pointer
@@ -268,11 +268,10 @@ public:
         cout << "Store Opens:\n";
         for (int i = 0; i < INITIAL_LINE_SIZE; i++)  // immediately populate 5 people in line
         {
-            shopLine.push_back(lineNames[rand() % names.size()]);  // add names to the back of the linked list picking randomly from the names.txt file
-            cout << " " << names[i] << " joined the line" << endl;  // output that name and that they joined the line
+            shopLine.push_back(lineNames[rand() % lineNames.size()]);  // add names to the back of the linked list picking randomly from the names.txt file
+            cout << " " << lineNames[i] << " joined the line" << endl;  // output that name and that they joined the line
         }
-
-
+        shopLine.print();
     }
 
 };
