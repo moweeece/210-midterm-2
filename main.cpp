@@ -14,6 +14,7 @@ using namespace std;
 
 const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20;
 const int INITIAL_LINE_SIZE = 5;
+const int SIM_TIME = 20;
 
 // class declaration
 class DoublyLinkedList {
@@ -264,6 +265,9 @@ public:
     }
 
     void simulation (vector<string>& simVec) {
+
+        int time = 0;
+        string custName;
         
         cout << "Store Opens:\n";
         for (int i = 0; i < INITIAL_LINE_SIZE; i++)  // immediately populate 5 people in line
@@ -273,7 +277,23 @@ public:
         }
 
         cout << "Resulting Line:\n";
-        simVec.print();
+        print();
+
+        for (time = 0; time < SIM_TIME; time++) {
+            cout << "Time Step #" << time + 1 << endl;
+        }
+
+        // customer is served
+        if (head) {  // if there is a customer in line
+            cout << head->data << " is served" << endl;
+            pop_front();   // remove guest who was served from the line/list
+        }
+
+        // random customer joining the line
+        if (time % 2 == 1) {
+            custName = "Cust" + 
+
+        }
 
 
     }
