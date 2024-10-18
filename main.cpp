@@ -266,8 +266,10 @@ public:
 
     void simulation (vector<string>& simVec) {
 
+        srand(time(0));  // seed time for random
+
         int time = 0;
-        string custName;
+        string custName, VIPName;
         
         cout << "Store Opens:\n";
         for (int i = 0; i < INITIAL_LINE_SIZE; i++)  // immediately populate 5 people in line
@@ -277,24 +279,65 @@ public:
         }
 
         cout << "Resulting Line:\n";
-        print();
+        simVec.print();
 
         for (time = 0; time < SIM_TIME; time++) {
             cout << "Time Step #" << time + 1 << endl;
         }
 
-        // customer is served
-        if (head) {  // if there is a customer in line
-            cout << head->data << " is served" << endl;
-            pop_front();   // remove guest who was served from the line/list
+
+        // A customer being helped at the beginning of the line and ordering their coffee is 40%
+        int prob = rand() % 100 + 1;
+        if (prob <= 40) {
+            if (head) {
+                cout << head->data << " is served" << endl;
+                pop_front();
+            }
+            else {
+                cout << "No customers to help" << endl;
+            }
         }
 
-        // random customer joining the line
-        if (time % 2 == 1) {
-            custName = "Cust" + 
-
+        // A new customer joining the end of the line is 60%
+        int prob = rand() % 100 + 1;
+        if (prob <= 60) {
+            custName = simVec[rand() % simVec.size()];
+            push_back(custName);
+            cout << custName << " joins the line" << endl;
         }
 
+        // The customer at the end of the line deciding they don't want to wait and leaving is 20%
+        int prob = rand() % 100 + 1;
+        if (prob <= 20) {
+            if (tail) {
+                cout << tail->data << " exits the rear of the line" << endl;
+                pop_back();
+            }
+        }
+
+        // Any particular customer can decide they don't want to wait and leave the line: 10%
+        int prob = rand() % 100 + 1;
+        if (prob <= 10) {
+            if (head) {
+                cout << head->data << " exits the the line" << endl;
+                pop_front();
+            }
+        }
+
+        // VIP
+        prob = rand() % 100 + 1;  // Random number between 1-100
+            if (prob <= 10) {
+                if (!simVec.empty()) {
+                    string name = simVec[rand() % simVec.size()];
+                    cout << "    " << name << " (VIP) joins the front of the line\n";
+                    push_front(name);
+                }
+            }
+
+
+        // print the resulting line
+        cout << "Resulting Line:\n";
+        simVec.print();
 
     }
 
