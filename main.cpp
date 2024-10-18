@@ -7,6 +7,7 @@
 #include <ctime>    // for seeding time
 #include <fstream>  // for files
 #include <vector>   // for vectors
+#include <string>   // for strings
 using namespace std;
 
 
@@ -136,7 +137,7 @@ public:
     }
 
     // function to add a value to the end of the list
-    void push_back(int v) {
+    void push_back(string v) {
         Node* newNode = new Node(v);    // create a new node with the value passed in
         if (!tail)                  // if the list is empty
             head = tail = newNode;  // head and tail point to newNode
@@ -148,7 +149,7 @@ public:
     }
 
     // function to add a value to the front of the list    
-    void push_front(int v) {
+    void push_front(string v) {
         Node* newNode = new Node(v);   // create a new node with the value passed in
         if (!head)                     // if the list is empty
             head = tail = newNode;    // head and tail point to newNode
@@ -249,11 +250,26 @@ public:
     }
 
     // function to read names from a file
-    vector<string>
+    vector<string> read_names(const string& fileName) {
+        vector<string> names;  // vector called names
+        ifstream file(fileName);  // opens the file
+        string name;   // name variable
+        while (getline(file, name)) {
+            names.push_back(name);  // add a name to the end of the vector
+        }
+
+        return names;  // return names vector
+    }
 };
 
 // main function
 int main() {
+    srand(time(0));  // seed time for random
+
+    DoublyLinkedList line;    // creates a doubly linked list called line
+
+    vector<string> nameVec = read_names("names.txt");   // calls read_names function to populate the nameVec vector from the names.txt file
+
     cout << MIN_NR + MIN_LS + MAX_NR + MAX_LS;  // dummy statement to avoid compiler warning
 
     
