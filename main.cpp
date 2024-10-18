@@ -3,7 +3,12 @@
 // Starting with code from Midterm #1
 
 #include <iostream>
+#include <cstdlib>  // for random
+#include <ctime>    // for seeding time
+#include <fstream>  // for files
+#include <vector>   // for vectors
 using namespace std;
+
 
 const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20;
 
@@ -242,6 +247,9 @@ public:
 
         cout << endl;  // new line
     }
+
+    // function to read names from a file
+    vector<string>
 };
 
 // main function
