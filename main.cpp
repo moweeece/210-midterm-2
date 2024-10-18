@@ -8,10 +8,12 @@
 #include <fstream>  // for files
 #include <vector>   // for vectors
 #include <string>   // for strings
+#include <iomanip>  // for setw
 using namespace std;
 
 
 const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20;
+const int INITIAL_LINE_SIZE = 5;
 
 // class declaration
 class DoublyLinkedList {
@@ -251,15 +253,28 @@ public:
 
     // function to read names from a file
     vector<string> read_names(const string& fileName) {
-        vector<string> names;  // vector called names
-        ifstream file(fileName);  // opens the file
-        string name;   // name variable
+        vector<string> names;          // string vector called names
+        ifstream file(fileName);       // opens the file
+        string name;                   // name variable
         while (getline(file, name)) {
-            names.push_back(name);  // add a name to the end of the vector
+            names.push_back(name);      // add a name to the end of the vector
         }
 
         return names;  // return names vector
     }
+
+    void simulation(DoublyLinkedList& shopLine, const vector<string>& lineNames)
+    {
+        cout << "Store Opens:\n";
+        for (int i = 0; i < INITIAL_LINE_SIZE; i++)  // immediately populate 5 people in line
+        {
+            shopLine.push_back(lineNames[rand() % names.size()]);  // add names to the back of the linked list picking randomly from the names.txt file
+            cout << " " << names[i] << " joined the line" << endl;  // output that name and that they joined the line
+        }
+
+
+    }
+
 };
 
 // main function
@@ -270,7 +285,11 @@ int main() {
 
     vector<string> nameVec = read_names("names.txt");   // calls read_names function to populate the nameVec vector from the names.txt file
 
+    simulation(line, nameVec); // call to simulation function
+
     cout << MIN_NR + MIN_LS + MAX_NR + MAX_LS;  // dummy statement to avoid compiler warning
+
+
 
     
     return 0;
