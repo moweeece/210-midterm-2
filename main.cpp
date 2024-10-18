@@ -40,7 +40,7 @@ public:
     DoublyLinkedList() { head = nullptr; tail = nullptr; }
 
     // method to insert a value after a specified position
-    void insert_after(int value, int position) {
+    void insert_after(string value, int position) {
         if (position < 0) {   // input validation statement
             cout << "Position must be >= 0." << endl;  // error output
             return;   // exit the function
@@ -76,7 +76,7 @@ public:
     }
 
     // delete a node by value
-    void delete_val(int value) {
+    void delete_val(string value) {
         if (!head) return;   // if the list is empty or head is nullptr
 
         Node* temp = head;   // creates a temporary node and sets it to point to head
@@ -215,7 +215,7 @@ public:
             return;   // exit the function as there is nothing to print
         }
         while (current) {   // while current is pointing to something
-            cout << current->data << " ";   // print the data inside the node current is pointing to with a space
+            cout << setw(20) << current->data << " ";   // print the data inside the node current is pointing to with a space
             current = current->next;   // move current to the next node
         } // printing complete
         cout << endl;   // new line
@@ -229,7 +229,7 @@ public:
             return; // exit the function as there is nothing to print
         }
         while (current) {   // while current is pointing to something
-            cout << current->data << " "; // print the data inside the node current is pointing to with a space
+            cout << setw(20) << current->data << " "; // print the data inside the node current is pointing to with a space
             current = current->prev;  // move current to the previous node
         } // printing complete
         cout << endl; // new line
@@ -240,7 +240,7 @@ public:
         Node* temp = head;     // create a temp node and points to where head is pointing to, the front of the list
         
         while (temp) {       // while temp is pointing to something, meaning not nullptr, meaning not pst the end of the list
-            cout << temp->data << " ";  // output the data in the pointer
+            cout << setw(20) << temp->data << " ";  // output the data in the pointer
             if (temp->next) {   // if there is another node ahead of where temp is
                 temp = temp->next->next;  // skip the next node and continue to the next one after that
             }
@@ -263,15 +263,19 @@ public:
         return names;  // return names vector
     }
 
-    void simulation(DoublyLinkedList& shopLine, const vector<string>& lineNames)
-    {
+    void simulation (vector<string>& simVec) {
+        
         cout << "Store Opens:\n";
         for (int i = 0; i < INITIAL_LINE_SIZE; i++)  // immediately populate 5 people in line
         {
-            shopLine.push_back(lineNames[rand() % lineNames.size()]);  // add names to the back of the linked list picking randomly from the names.txt file
-            cout << " " << lineNames[i] << " joined the line" << endl;  // output that name and that they joined the line
+            simVec.push_back(simVec[rand() % simVec.size()]);  // add names to the back of the linked list picking randomly from the names.txt file
+            cout << " " << simVec[i] << " joined the line" << endl;  // output that name and that they joined the line
         }
-        shopLine.print();
+
+        cout << "Resulting Line:\n";
+        simVec.print();
+
+
     }
 
 };
@@ -281,14 +285,11 @@ int main() {
     srand(time(0));  // seed time for random
 
     DoublyLinkedList line;    // creates a doubly linked list called line
+    vector<string> nameVec = line.read_names("names.txt");   // calls read_names function to populate the nameVec vector from the names.txt file
 
-    vector<string> nameVec = read_names("names.txt");   // calls read_names function to populate the nameVec vector from the names.txt file
-
-    simulation(line, nameVec); // call to simulation function
+    line.simulation(nameVec);
 
     cout << MIN_NR + MIN_LS + MAX_NR + MAX_LS;  // dummy statement to avoid compiler warning
-
-
 
     
     return 0;
